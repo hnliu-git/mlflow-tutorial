@@ -26,17 +26,9 @@ def train():
     mlflow.set_experiment("simple_keras_experiment")
     
     with mlflow.start_run():
-        mlflow.log_param("learning_rate", 0.01)
-        mlflow.log_param("batch_size", 10)
-        
-        history = model.fit(X, y, epochs=10, batch_size=10, verbose=1)
-        
-        for epoch, loss in enumerate(history.history['loss']):
-            mlflow.log_metric("loss", loss, step=epoch)
-            print(f"Epoch {epoch+1}, Loss: {loss}")
-
+        model.fit(X, y, epochs=10, batch_size=10, verbose=1)
         # Log the trained Keras model with a signature
-        mlflow.keras.log_model(model, "model", signature=infer_signature(np.random.randn(1, 10), np.random.randn(1, 1))) 
+        mlflow.keras.log_model(model, "model", signature=infer_signature(X, y))
 
 if __name__ == "__main__":
     train()
