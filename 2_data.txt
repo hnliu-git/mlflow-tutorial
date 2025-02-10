@@ -1,0 +1,3 @@
+I am happy<sep>2
+I am sad<sep>1
+I am angry<sep>0
